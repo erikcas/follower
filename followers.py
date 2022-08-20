@@ -1,6 +1,7 @@
 from analyse import get_follower_data 
 from check import check_tweeps
 import os
+from sys import platform
 
 def analyse_user():
     print('Geef de twitter username (zonder @) in')
@@ -12,10 +13,21 @@ def analyse_user():
     followers = get_follower_data(wie)
     test = check_tweeps(wie, datum)
 
-    os.system('clear')
+    if platform == 'linux' or platform == 'linux2' or platform = 'darwin':
+        os.system('clear')
+    elif platform == 'win32':
+        os.system('cls')
+
     print(followers)
     print('\n\n')
     print(test)
 
-os.system('rm -rf *.json')
+try:
+    if platform == 'linux' or platform == 'linux2' or platform = 'darwin':
+        os.system('rm *.json')
+    elif platform == 'win32':
+        os.system('del *.json')
+except:
+    print('No files to delete')
+
 analyse_user()
