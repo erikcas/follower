@@ -49,7 +49,7 @@ def check_tweeps(schermnaam, datum):
     # Print de samenvatting:
     res = ''
     res += f'Aantal gecheckte volgers: {aantal}\n'
-    res += f'Aantal nieuwe volgers van {schermnaam} na {datum}: {twitteraars}\n'
+    res += f'Aantal volgers van {schermnaam} met een twitteraccount aangemaakt na {datum}: {twitteraars}\n'
     res += f'\nVan die accounts hebben:\n'
     res += f'{nul_follow} volgers zelf geen volgers. Dat is afgerond {procent_nul_volgers} procent\n'
     res += f'{has_follow} volgers 1 of meer volgers.\n'
