@@ -23,7 +23,7 @@ access_token_secret = login[3].rstrip('\n')
 
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
-auth_api = API(auth)
+auth_api = API(auth, wait_on_rate_limit=True)
 
 # Helper functions to load and save intermediate steps
 def save_json(variable, filename):
@@ -88,7 +88,11 @@ def get_utc_unix_time():
 
 # Get a list of follower ids for the target account
 def get_follower_ids(target):
-    return auth_api.get_follower_ids(screen_name=target)
+    ids= []
+    for page in tweepy.Cursor(auth_api.get_follower_ids, screen_name=target).pages():
+        ids.extend(page)
+
+    return ids
 
 # Twitter API allows us to batch query 100 accounts at a time
 # So we'll create batches of 100 follower ids and gather Twitter User objects for each batch
