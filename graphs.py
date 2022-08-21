@@ -15,7 +15,7 @@ def maak_grafiek(wie, twitter_data, datum, wat,tijd):
     wat = wat.lower()
     # Even een leuke titel verzinnen
     titel = f'Volgers van @{wie}. Volgeraccounts aangemaakt op of na {datum}\n'
-    titel += f'Totaal {wat} (blauw) vs. accounts zonder {wat} op dit moment (rood)\n'
+    titel += f'Totaal accounts (blauw) vs. accounts zonder {wat} op dit moment (rood)\n'
     titel += f'DISCLAIMER: <Account aangemaakt op> betekent NIET <volgend sinds>!'
  
     all_data = pd.DataFrame(twitter_data)
