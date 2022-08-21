@@ -40,7 +40,7 @@ def load_json(filename):
             pass
     return ret
 
-def try_load_or_process(filename, processor_fn, function_arg):
+def try_load_or_process(filename, processor_fn, function_arg, tijd=''):
     load_fn = None
     save_fn = None
     if filename.endswith("json"):
@@ -53,7 +53,7 @@ def try_load_or_process(filename, processor_fn, function_arg):
         print("Loading " + filename)
         return load_fn(filename)
     else:
-        ret = processor_fn(function_arg)
+        ret = processor_fn(function_arg, tijd)
         print("Saving " + filename)
         save_fn(ret, filename)
         return ret
@@ -87,16 +87,19 @@ def get_utc_unix_time():
     return time.mktime(dts.timetuple())
 
 # Get a list of follower ids for the target account
-def get_follower_ids(target):
-    ids= []
-    for page in tweepy.Cursor(auth_api.get_follower_ids, screen_name=target).pages():
-        ids.extend(page)
+def get_follower_ids(target, tijd):
+    if tijd == 'r':
+        ids = auth_api.get_follower_ids(screen_name=target)
+    else:
+        ids= []
+        for page in tweepy.Cursor(auth_api.get_follower_ids, screen_name=target).pages():
+            ids.extend(page)
 
     return ids
 
 # Twitter API allows us to batch query 100 accounts at a time
 # So we'll create batches of 100 follower ids and gather Twitter User objects for each batch
-def get_user_objects(follower_ids):
+def get_user_objects(follower_ids, tijd):
     batch_len = 100
     num_batches = len(follower_ids) / 100
     #num_batches = 243000 / 100
@@ -146,16 +149,16 @@ def make_ranges(user_data, num_ranges=10):
                     labels[label].append(entry) 
     return labels
 
-def get_follower_data(target):
+def get_follower_data(target, tijd):
     print("Processing target: " + target)
 
 # Get a list of Twitter ids for followers of target account and save it
     filename = target + "_follower_ids.json"
-    follower_ids = try_load_or_process(filename, get_follower_ids, target)
+    follower_ids = try_load_or_process(filename, get_follower_ids, target, tijd)
 
 # Fetch Twitter User objects from each Twitter id found and save the data
     filename = target + "_followers.json"
-    user_objects = try_load_or_process(filename, get_user_objects, follower_ids)
+    user_objects = try_load_or_process(filename, get_user_objects, follower_ids, tijd)
     total_objects = len(user_objects)
 
 # Record a few details about each account that falls between specified age ranges
