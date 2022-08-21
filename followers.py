@@ -1,6 +1,7 @@
 from analyse import get_follower_data 
 from check import check_tweeps
 import os
+import sys
 from sys import platform
 from graphs import maak_grafiek
 
@@ -11,11 +12,15 @@ def analyse_user():
     print('Geef ook aan of je bestaande data wilt gebruiken,')
     print('je kunt ook de data opnieuw gebruiken door "n" in te geven.\n\n')
 
+    # Wie gaan we zoeken
     wie = input('Twitter username: ')
-    datum = input('Vanaf welke datum (dd-mm-jjj): ')
-    reuse_data = input('Data opnieuw ophalen (j|n): ')
+    if not wie:
+        print('Graag een twitter username ingeven. Start het script opnieuw.')
+        sys.exit()
+    # Vanaf welke datum aanmaak account
+    datum = input('Account aangemaakt vanaf welke datum (dd-mm-jjj): ')
+    # Zoeken we op volgerloze of tweetloze volgers
     wat = input('Kijken naar nul volgers of nul tweets (v|t): ')
-
     if wat == 'v' or wat == 'V':
         wat = 'Volgers'
     elif wat == 't' or wat == 'T':
@@ -23,7 +28,8 @@ def analyse_user():
     else:
         print('Graag een t (tweets) of een v (volgers) ingeven. Voer het script opnieuw uit.')
         sys.exit()
-
+    # Behouden we de reeds opgehaalde data of halen we verse data op?
+    reuse_data = input('Data opnieuw ophalen (j|n): ')
     if reuse_data == 'j' or reuse_data == 'J':
         try:
             if platform == 'linux' or platform == 'linux2' or platform == 'darwin':
@@ -32,6 +38,7 @@ def analyse_user():
                 os.system('del *.json')
         except:
             print('No files to delete')
+        # Halen we de 5000 meest recente volgers op of alle volgers?
         tijd = input('Alle accounts of 5000 meest recente (a|r): ')
         if tijd =='a' or tijd == 'A':
             tijd = 'a'
@@ -41,6 +48,7 @@ def analyse_user():
             print('Graag gevraagde invoer ingeven. Start het script opnieuw.')
             sys.exit()
     elif reuse_data == 'n' or reuse_data == 'N':
+        # Gebruik de voorhanden data, indien aanwezig
         print('We gebruiken de bestaande data indien aanwezig.')
     else:
         print('Graag j of n ingeven. Voer het script opnieuw uit.')
