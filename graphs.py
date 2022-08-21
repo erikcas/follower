@@ -12,11 +12,6 @@ def maak_grafiek(wie, twitter_data, datum, wat,tijd):
     else:
         zoeknaar = 'statuses_count'
 
-    if tijd == 'a':
-        soort = 'Alle accounts'
-    elif tijd == 'r':
-        soort = '5000 meest recente accounts'
-
     wat = wat.lower()
     # Even een leuke titel verzinnen
     titel = f'Volgers van @{wie}. Volgeraccounts aangemaakt op of na {datum}\n'
@@ -32,13 +27,15 @@ def maak_grafiek(wie, twitter_data, datum, wat,tijd):
     # Haal de accounts met nul volgers op
     temp = all_data[zoeknaar] == 0
     nul_follow = all_data[temp]
+    totaal_accounts = len(all_data.index)
+    nul_accounts = len(nul_follow.index)
     all_data = all_data.groupby(by=all_data['aanmaak'].dt.date).count()
     nul_follow = nul_follow.groupby(by=nul_follow['aanmaak'].dt.date).count()
 
     plt.style.use('seaborn')
     fig, ax = plt.subplots()
-    ax.plot(nul_follow.index, nul_follow[zoeknaar], c='red', label=f'{soort} zonder {wat} (inacief)')
-    ax.plot(all_data.index, all_data[zoeknaar], c='blue', label=f'{soort} totaal')
+    ax.plot(nul_follow.index, nul_follow[zoeknaar], c='red', label=f'{nul_accounts} zonder {wat} (inacief)')
+    ax.plot(all_data.index, all_data[zoeknaar], c='blue', label=f'{totaal_accounts} totaal')
     plt.legend(loc='upper left')
     plt.title(titel, fontsize=16)
     plt.show()
