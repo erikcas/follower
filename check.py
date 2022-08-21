@@ -9,7 +9,6 @@ def check_tweeps(schermnaam, datum):
     # Maak leeg dataframe
     df = pd.DataFrame()
     #Twitter tijd is UTC dus even aanpassen
-    twitter_datum = datetime.strptime(datum, '%d-%m-%Y').strftime('%Y-%m-%d')
     startDate = (utc.localize(datetime.strptime(datum, '%d-%m-%Y'))
             - timedelta(hours = 2)).date()
     df = pd.read_json(f'{schermnaam}_followers.json')
