@@ -21,7 +21,7 @@ def maak_grafiek(wie, twitter_data, datum, wat,tijd):
     # Even een leuke titel verzinnen
     titel = f'Volgers van @{wie}. Volgeraccounts aangemaakt op of na {datum}\n'
     titel += f'Totaal aantal {wat} (rood) vs. zonder (blauw)\n'
-    titel += f'DISCLAIMER: <Account aangemaakt> op betekent NIET <volgend sinds>!'
+    titel += f'DISCLAIMER: <Account aangemaakt op> betekent NIET <volgend sinds>!'
  
     all_data = pd.DataFrame(twitter_data)
     #Twitter tijd is UTC dus even aanpassen
