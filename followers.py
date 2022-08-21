@@ -33,9 +33,9 @@ def analyse_user():
     if reuse_data == 'j' or reuse_data == 'J':
         try:
             if platform == 'linux' or platform == 'linux2' or platform == 'darwin':
-                os.system('rm *.json')
+                os.system(f'rm *{wie}*.json')
             elif platform == 'win32':
-                os.system('del *.json')
+                os.system('del *{wie}*.json')
         except:
             print('No files to delete')
         # Halen we de 5000 meest recente volgers op of alle volgers?
