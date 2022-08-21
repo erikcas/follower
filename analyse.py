@@ -23,7 +23,7 @@ access_token_secret = login[3].rstrip('\n')
 
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
-auth_api = API(auth, wait_on_rate_limit=True)
+auth_api = API(auth, wait_on_rate_limit=True, retry_count=10, retry_delay=5, retry_errors=set([503]))
 
 # Helper functions to load and save intermediate steps
 def save_json(variable, filename):
