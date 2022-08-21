@@ -20,7 +20,7 @@ def analyse_user():
     # Vanaf welke datum aanmaak account
     datum = input('Account aangemaakt vanaf welke datum (dd-mm-jjj): ')
     # Zoeken we op volgerloze of tweetloze volgers
-    wat = input('Kijken naar nul volgers of nul tweets (v|t): ')
+    wat = input('Kijken naar nul (v)olgers of nul (t)weets (v|t): ')
     if wat == 'v' or wat == 'V':
         wat = 'Volgers'
     elif wat == 't' or wat == 'T':
@@ -39,7 +39,7 @@ def analyse_user():
         except:
             print('No files to delete')
         # Halen we de 5000 meest recente volgers op of alle volgers?
-        tijd = input('Alle accounts of 5000 meest recente (a|r): ')
+        tijd = input('(A)lle accounts of 5000 meest (r)ecente (a|r): ')
         if tijd =='a' or tijd == 'A':
             tijd = 'a'
         elif tijd == 'r' or tijd == 'R':
