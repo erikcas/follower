@@ -50,6 +50,9 @@ def analyse_user():
     elif reuse_data == 'n' or reuse_data == 'N':
         # Gebruik de voorhanden data, indien aanwezig
         print('We gebruiken de bestaande data indien aanwezig.')
+        print('Als geen data aanwezig blijkt, halen we deze op.')
+        print('We halen standaard alleen de meest recente 5000 volgers op.')
+        tijd = 'r'
     else:
         print('Graag j of n ingeven. Voer het script opnieuw uit.')
         sys.exit()
