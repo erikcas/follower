@@ -2,6 +2,7 @@ from analyse import get_follower_data
 from check import check_tweeps
 import os
 from sys import platform
+from graphs import maak_grafiek
 
 def analyse_user():
     print('Geef de twitter username (zonder @) in')
@@ -37,7 +38,7 @@ def analyse_user():
         os.system('cls')
 
     print(followers)
-    print('\n\n')
     print(twitter_data)
+    maak_grafiek(twitter_data, datum)
 
 analyse_user()
