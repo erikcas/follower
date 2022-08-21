@@ -10,12 +10,14 @@ def check_tweeps(schermnaam, datum):
     df = pd.DataFrame()
     #Twitter tijd is UTC dus even aanpassen
     twitter_datum = datetime.strptime(datum, '%d-%m-%Y').strftime('%Y-%m-%d')
-    startDate = utc.localize(datetime.strptime(datum, '%d-%m-%Y'))
-    startDate = startDate - timedelta(hours=2)
+    startDate = (utc.localize(datetime.strptime(datum, '%d-%m-%Y'))
+            - timedelta(hours = 2)).date()
     df = pd.read_json(f'{schermnaam}_followers.json')
     # Zet de datum om, zodat we kunnen vergelijken
     df['aanmaak'] = pd.to_datetime(df['created_at']).dt.date
     df = df[['screen_name', 'id_str', 'aanmaak', 'followers_count', 'friends_count', 'statuses_count']]
+    dfnew = (df['aanmaak'] > startDate)
+    df = df.loc[dfnew]
     return df
 
 # Dit script vereist de tweepy en pytz module. Installeer:
