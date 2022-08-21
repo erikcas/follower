@@ -34,7 +34,7 @@ def maak_grafiek(wie, twitter_data, datum, wat,tijd):
 
     plt.style.use('seaborn')
     fig, ax = plt.subplots()
-    ax.plot(nul_follow.index, nul_follow[zoeknaar], c='red', label=f'{nul_accounts} zonder {wat} (inacief)')
+    ax.plot(nul_follow.index, nul_follow[zoeknaar], c='red', label=f'{nul_accounts} zonder {wat} (inactief)')
     ax.plot(all_data.index, all_data[zoeknaar], c='blue', label=f'{totaal_accounts} totaal')
     plt.legend(loc='upper left')
     plt.title(titel, fontsize=16)
