@@ -20,7 +20,7 @@ def maak_grafiek(wie, twitter_data, datum, wat,tijd):
     wat = wat.lower()
     # Even een leuke titel verzinnen
     titel = f'Volgers van @{wie}. Volgeraccounts aangemaakt op of na {datum}\n'
-    titel += f'Totaal aantal {wat} (rood) vs. zonder (blauw)\n'
+    titel += f'Totaal aantal {wat} (blauw) vs. zonder (rood)\n'
     titel += f'DISCLAIMER: <Account aangemaakt op> betekent NIET <volgend sinds>!'
  
     all_data = pd.DataFrame(twitter_data)
@@ -37,8 +37,8 @@ def maak_grafiek(wie, twitter_data, datum, wat,tijd):
 
     plt.style.use('seaborn')
     fig, ax = plt.subplots()
-    ax.plot(nul_follow.index, nul_follow[zoeknaar], c='blue', label=f'{soort}. Geen {wat}')
-    ax.plot(all_data.index, all_data[zoeknaar], c='red', label=f'{soort}. Totaal aantal {wat}')
+    ax.plot(nul_follow.index, nul_follow[zoeknaar], c='red', label=f'{soort}. Geen {wat}')
+    ax.plot(all_data.index, all_data[zoeknaar], c='blue', label=f'{soort}. Totaal aantal {wat}')
     plt.legend(loc='upper left')
     plt.title(titel, fontsize=16)
     plt.show()
