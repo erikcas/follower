@@ -29,7 +29,7 @@ def analyse_user():
         sys.exit()
 
     followers = get_follower_data(wie)
-    test = check_tweeps(wie, datum)
+    twitter_data = check_tweeps(wie)
 
     if platform == 'linux' or platform == 'linux2' or platform == 'darwin':
         os.system('clear')
@@ -38,6 +38,6 @@ def analyse_user():
 
     print(followers)
     print('\n\n')
-    print(test)
+    print(twitter_data)
 
 analyse_user()
